@@ -5,8 +5,13 @@ services:
   urls:
     container_name: url_web_container
     build: ./ttask_urls
+    command: sh -c "while ! nc -z db 5432; do sleep 1; done &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
+    depends_on:
+      - db
 
   db:
     image: postgres
