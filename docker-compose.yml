@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+
+  urls:
+    container_name: url_web_container
+    build: ./ttask_urls
+    ports:
+      - "8000:8000"
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: urls_db
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: password
